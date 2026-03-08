@@ -1,0 +1,7 @@
+db.properties
+
+nbproject/private/
+build/
+dist/
+
+*.class
