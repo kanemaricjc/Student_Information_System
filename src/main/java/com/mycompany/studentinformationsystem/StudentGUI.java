@@ -2,6 +2,7 @@ package com.mycompany.studentinformationsystem;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -11,7 +12,7 @@ public class StudentGUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentGUI.class.getName());
 
-    private void refreshTable() {
+    private void refreshTable() throws IOException {
         DefaultTableModel model = (DefaultTableModel) studentTable.getModel();
         model.setRowCount(0);
         
@@ -36,7 +37,7 @@ public class StudentGUI extends javax.swing.JFrame {
         jPanel4.setPreferredSize(newSize);
         jPanel4.setMinimumSize(newSize);
         
-        this.pack();
+        
         
     }
     
@@ -550,7 +551,11 @@ public class StudentGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_homeBTNActionPerformed
 
     private void showStudentListBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showStudentListBTNActionPerformed
-    refreshTable();
+        try {
+            refreshTable();
+        } catch (IOException ex) {
+            System.getLogger(StudentGUI.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
         resizePanel(950, 500);
     
     CardLayout cl = (CardLayout) jPanel4.getLayout();
@@ -579,7 +584,11 @@ public class StudentGUI extends javax.swing.JFrame {
     
     Student newStudent = new Student(0,fName,lName,age,email);
     StudentDAO dao = new StudentDAO();
-    dao.addStudent(newStudent);
+        try {
+            dao.addStudent(newStudent);
+        } catch (IOException ex) {
+            System.getLogger(StudentGUI.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     
     
         // Show a success popup
@@ -612,6 +621,8 @@ public class StudentGUI extends javax.swing.JFrame {
         }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Invalid ID!", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            System.getLogger(StudentGUI.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         
     }//GEN-LAST:event_deleteBtnActionPerformed
@@ -637,6 +648,8 @@ public class StudentGUI extends javax.swing.JFrame {
         }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Invalid ID!", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            System.getLogger(StudentGUI.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         
         idField.setText("");

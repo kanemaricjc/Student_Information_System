@@ -4,6 +4,7 @@
  */
 package com.mycompany.studentinformationsystem;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class StudentDAO {
     
-    public void addStudent(Student student) {
+    public void addStudent(Student student) throws IOException {
         
     String sql = "INSERT INTO students (first_name, last_name, age, email) VALUES (?, ?, ?, ?)";
     try (Connection conn = DBConnection.getConnection();
@@ -35,7 +36,7 @@ public class StudentDAO {
     
     }
     
-    public List<Student> getAllStudents() {
+    public List<Student> getAllStudents() throws IOException {
         
     List<Student> students = new ArrayList<>();
     String sql = "SELECT * FROM students";
@@ -59,7 +60,7 @@ public class StudentDAO {
     return students;
 }
     
-    public void deleteStudent(int studentId) {
+    public void deleteStudent(int studentId) throws IOException {
         String sql = "DELETE FROM students WHERE student_id = ?";
         
         try ( Connection conn = DBConnection.getConnection();
@@ -80,7 +81,7 @@ public class StudentDAO {
         }
     }
     
-    public void updateStudent(Student student) {
+    public void updateStudent(Student student) throws IOException {
         
         String sql = "UPDATE students SET first_name = ?, last_name = ?, age = ?, email = ? WHERE student_id = ?";
         
